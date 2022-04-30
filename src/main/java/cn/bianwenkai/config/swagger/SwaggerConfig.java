@@ -2,8 +2,10 @@ package cn.bianwenkai.config.swagger;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
@@ -21,11 +23,14 @@ import java.util.ArrayList;
 public class SwaggerConfig extends WebMvcConfigurationSupport {
 
     //配置Swagger的Docket的Bean实例
-
     @Bean
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(apiInfo());
+                .apiInfo(apiInfo())
+                .select()
+                //使其只扫描有 @RestController 注解的类
+                .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
+                .build();
     }
 
     //配置Swagger信息
