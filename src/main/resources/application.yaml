@@ -18,6 +18,9 @@ spring:
     password:
     host: smtp.qq.com
     properties: mail.smtp.ssl.enable=true
+  redis:
+    host: 127.0.0.1
+    port: 6379
 
 # 整合mybatis
 mybatis:
