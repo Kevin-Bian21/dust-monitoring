@@ -1,0 +1,30 @@
+
+server:
+  port: 8080
+
+spring:
+  datasource:
+    username: root
+    password: bwk123
+    url: jdbc:mysql://localhost:3306/dust_monitor?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  mvc:
+    format:
+      date-time: yyyy-MM-dd HH:mm:ss   # 时间日期格式化
+    pathmatch:
+      matching-strategy: ant_path_matcher
+#  mail:
+#    username:
+#    password:
+#    host: smtp.qq.com
+#    properties: mail.smtp.ssl.enable=true
+  redis:
+    host: 127.0.0.1
+    port: 6379
+
+# 整合mybatis
+mybatis:
+  type-aliases-package: cn.bianwenkai.entity
+  mapper-locations: classpath:mybatis/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
