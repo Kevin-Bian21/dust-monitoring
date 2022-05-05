@@ -12,12 +12,12 @@ import java.util.Date;
 @Data
 public class DustEnvironment {
 
-    Integer id;
-    Float dustDensity;
-    String monitorLocal;
-    Date monitorDateTime;
-    Float temperature;
-    Float humidity;
-    Float windSpeed;
+    public Integer id;
+    public Float dustDensity;
+    public String monitorLocal;
+    public Date monitorDateTime;
+    public Float temperature;
+    public Float humidity;
+    public Float windSpeed;
 
 }
