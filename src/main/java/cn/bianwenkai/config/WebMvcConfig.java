@@ -15,9 +15,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebMvcConfig implements WebMvcConfigurer {
 
 
+
+    //配置静态资源处理拦截器，如果访问的路径是 addResourceHandler() 中的的话，那就映射到访问本地的 addResourceLocations() 的参数的路径中
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/**").addResourceLocations("classpath:/static");
+        registry.addResourceHandler("/static/**","/swagger-ui/**")
+                .addResourceLocations("classpath:/static/","classpath:/META-INF/resources/webjars/springfox-swagger-ui/")
+                .resourceChain(false);
     }
 
 }
