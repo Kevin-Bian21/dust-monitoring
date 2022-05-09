@@ -13,4 +13,10 @@ public interface LoginMapper {
 
     User LoginByAccount(String account);
 
+    //通过用户ID来确认用户身份
+    String UserIdentity(int id);
+
+    //根据用户Id查找用户
+    User FindUserById(int id);
+
 }

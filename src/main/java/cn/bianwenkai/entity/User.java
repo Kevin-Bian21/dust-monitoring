@@ -1,7 +1,7 @@
 package cn.bianwenkai.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -17,12 +17,14 @@ public class User {
     private String userName;
     private String loginAccount;
     private String passWord;
+    private String avatar;
     private String phone;
     private String email;
-    @DateTimeFormat
+    @JsonFormat
     private Date generateTime;
-    @DateTimeFormat
+    @JsonFormat
     private Date lastLoginTime;
     private Integer loginCount;
+    private String access;
 
 }

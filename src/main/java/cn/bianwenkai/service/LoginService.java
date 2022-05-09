@@ -10,6 +10,9 @@ public interface LoginService {
 
     User login(String account, String password);
 
+    String userIdentity(int id);
+
+    User findUserById(int id);
 }
 
 

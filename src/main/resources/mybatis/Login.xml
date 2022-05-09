@@ -5,9 +5,21 @@
 <mapper namespace="cn.bianwenkai.mapper.LoginMapper">
 
     <select id="LoginByAccount" resultType="User">
-        select user_id,user_name,login_account,user_pwd as password,phone,email,generate_time,last_login_time,login_count
+        select user_id,user_name,login_account,user_pwd as password, avatar , phone,email,generate_time,last_login_time,login_count
         from user_info
         where  login_account  = #{account} or phone = #{account} or email = #{account};
+    </select>
+
+    <select id="UserIdentity" resultType="String">
+        select role_name
+        from role_info r, user_role_info ur
+        where r.role_id = ur.role_id and ur.user_id = #{id};
+    </select>
+
+    <select id="FindUserById" resultType="User">
+        select user_id,user_name,login_account,user_pwd as password, avatar , phone,email,generate_time,last_login_time,login_count
+        from user_info
+        where  user_id = #{id};
     </select>
 
 </mapper>
