@@ -1,5 +1,6 @@
 package cn.bianwenkai.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.util.Date;
@@ -12,12 +13,14 @@ import java.util.Date;
 @Data
 public class DustEnvironment {
 
-    public Integer id;
-    public Float dustDensity;
-    public String monitorLocal;
-    public Date monitorDateTime;
-    public Float temperature;
-    public Float humidity;
-    public Float windSpeed;
+    private Integer id;
+    private Float dustDensity;
+    private String monitorLocal;
+    @JsonFormat
+    private Date monitorDateTime;
+    private Float temperature;
+    private Float humidity;
+    private Float windSpeed;
+    private String[] tag;
 
 }
