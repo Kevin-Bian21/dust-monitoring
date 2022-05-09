@@ -19,13 +19,13 @@ import java.util.Map;
  * @DATE 2022/5/4 - 18:07
  **/
 @RestController
-@RequestMapping(value = "/admins" ,produces = {"application/json;charset=UTF-8"})
+@RequestMapping(value = "/api" ,produces = {"application/json;charset=UTF-8"})
 public class LoginController {
 
     @Resource
     private LoginService loginService;
 
-    @PostMapping("/Login")
+    @PostMapping("/login")
     @ResponseBody
     public String login(@RequestBody Map<String, String> info) throws JsonProcessingException {
         User user = loginService.login(info.get("username"), info.get("password"));
@@ -72,4 +72,15 @@ public class LoginController {
         return mapper.writeValueAsString(map);
     }
 
+
+    @GetMapping("/logout")
+    @ResponseBody
+    public String logout(@RequestHeader("Authorization") String token) throws JsonProcessingException {
+        Map<String, Object> map = new HashMap<>();
+        ObjectMapper mapper = new ObjectMapper();
+        map.put("success", true);
+        map.put("message", "退出登录成功");
+        map.put("data", new Object[0]);
+        return mapper.writeValueAsString(map);
+    }
 }
