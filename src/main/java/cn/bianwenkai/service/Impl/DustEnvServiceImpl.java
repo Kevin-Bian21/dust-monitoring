@@ -21,20 +21,17 @@ public class DustEnvServiceImpl implements DustEnvService {
     private DustEnvDataMapper dustEnvDataMapper;
 
     @Override
-    public List<DustEnvironment> getDustEnvData() {
+    public List<DustEnvironment> getDustEnvData(float dustLimit, float temperatureLimit) {
         List<DustEnvironment> list = new ArrayList<>();
         //如果粉尘浓度或者温湿度过高，则进行预警
         for (DustEnvironment de : dustEnvDataMapper.GetEnvData()) {
             String[] tag = new String[1];
-            if (de.getDustDensity() > 5 && de.getHumidity() > 60 && de.getTemperature() > 10) {
-                tag[0] = "良好";
-                de.setTag(tag);
-            } else if (de.getDustDensity() > 25 && de.getHumidity() > 40 && de.getTemperature() > 20){
-                tag[0] = "中等";
-                de.setTag(tag);
-            } else if (de.getDustDensity() > 50 && de.getHumidity() > 0 && de.getTemperature() > 30){
+            if (de.getDustDensity() > dustLimit || de.getTemperature() > temperatureLimit) {
                 tag[0] = "严重";
-                de.setTag(tag);
+                de.setTags(tag);
+            } else{
+                tag[0] = "良好";
+                de.setTags(tag);
             }
             list.add(de);
         }

@@ -2,6 +2,7 @@ package cn.bianwenkai.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -16,11 +17,12 @@ public class DustEnvironment {
     private Integer id;
     private Float dustDensity;
     private String monitorLocal;
-    @JsonFormat
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date monitorDateTime;
     private Float temperature;
     private Float humidity;
     private Float windSpeed;
-    private String[] tag;
+    private String[] tags;
 
 }

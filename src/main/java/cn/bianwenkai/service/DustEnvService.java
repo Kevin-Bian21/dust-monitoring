@@ -10,6 +10,6 @@ import java.util.List;
  **/
 public interface DustEnvService {
 
-    List<DustEnvironment> getDustEnvData();
+    List<DustEnvironment> getDustEnvData(float dustLimit, float temperatureLimit);
 
 }
