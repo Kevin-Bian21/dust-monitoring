@@ -1,7 +1,5 @@
 package cn.bianwenkai.service;
 
-import cn.bianwenkai.entity.DustEnvironment;
-
 import java.util.List;
 
 /**
@@ -10,6 +8,6 @@ import java.util.List;
  **/
 public interface DustEnvService {
 
-    List<DustEnvironment> getDustEnvData(float dustLimit, float temperatureLimit);
+    List<Object> getDustEnvData(float dustLimit, float temperatureLimit);
 
 }
