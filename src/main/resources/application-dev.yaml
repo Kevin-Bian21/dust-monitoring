@@ -20,6 +20,7 @@ spring:
     time-zone: GMT+8
 
 
+
   #  mail:
 #    username:
 #    password:
@@ -35,3 +36,4 @@ mybatis:
   mapper-locations: classpath:mybatis/*.xml
   configuration:
     map-underscore-to-camel-case: true
+
