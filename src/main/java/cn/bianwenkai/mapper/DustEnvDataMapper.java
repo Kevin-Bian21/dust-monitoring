@@ -1,6 +1,7 @@
 package cn.bianwenkai.mapper;
 
 import cn.bianwenkai.entity.DustEnvironment;
+import cn.bianwenkai.entity.WarningData;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -14,5 +15,7 @@ import java.util.List;
 public interface DustEnvDataMapper {
 
     List<DustEnvironment> GetEnvData();
+
+    WarningData GetWarningData();
 
 }
