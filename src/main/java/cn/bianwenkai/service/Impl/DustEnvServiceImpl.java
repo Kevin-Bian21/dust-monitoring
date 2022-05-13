@@ -3,7 +3,7 @@ package cn.bianwenkai.service.Impl;
 import cn.bianwenkai.entity.DustEnvironment;
 import cn.bianwenkai.mapper.DustEnvDataMapper;
 import cn.bianwenkai.service.DustEnvService;
-import cn.utils.HistogramData;
+import cn.bianwenkai.utils.HistogramData;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

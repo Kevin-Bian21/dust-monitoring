@@ -1,4 +1,4 @@
-package cn.utils;
+package cn.bianwenkai.utils;
 
 import cn.bianwenkai.entity.User;
 import lombok.AllArgsConstructor;

@@ -1,6 +1,6 @@
 package cn.bianwenkai.websocket;
 
-import cn.utils.ParserJwt;
+import cn.bianwenkai.utils.ParserJwt;
 import com.alibaba.fastjson.JSON;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

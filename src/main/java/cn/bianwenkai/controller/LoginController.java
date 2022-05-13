@@ -2,8 +2,8 @@ package cn.bianwenkai.controller;
 
 import cn.bianwenkai.entity.User;
 import cn.bianwenkai.service.LoginService;
-import cn.utils.CreateJwt;
-import cn.utils.ParserJwt;
+import cn.bianwenkai.utils.CreateJwt;
+import cn.bianwenkai.utils.ParserJwt;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Claims;

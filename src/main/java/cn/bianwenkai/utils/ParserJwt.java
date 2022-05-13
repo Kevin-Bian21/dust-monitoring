@@ -1,4 +1,4 @@
-package cn.utils;
+package cn.bianwenkai.utils;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
