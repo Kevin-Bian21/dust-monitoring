@@ -22,7 +22,11 @@ public class DustEnvServiceImpl implements DustEnvService {
     private DustEnvDataMapper dustEnvDataMapper;
 
     @Override
-    public List<Object> getDustEnvData(float dustLimit, float temperatureLimit) {
+    public List<Object> getDustEnvData(String dust, String temperature) {
+
+        float dustLimit = (dust == null) ? 50f : Float.parseFloat(dust);
+        float temperatureLimit = (temperature == null) ? 30 : Float.parseFloat(temperature);
+
         List<DustEnvironment> list = new ArrayList<>();
         List<HistogramData> dataList = new ArrayList<>();
         List<Object> combineList = new ArrayList<>();

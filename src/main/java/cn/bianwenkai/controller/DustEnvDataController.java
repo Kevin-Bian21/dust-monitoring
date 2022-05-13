@@ -24,17 +24,9 @@ public class DustEnvDataController {
     @PostMapping("/presentEnvData")
     @ResponseBody
     public String getPresentEnvData(@RequestBody Map<String, String> info) throws JsonProcessingException {
-        float dustLimit ;
-        float temperatureLimit ;
+        String dustLimit = info.get("dustLimit");
+        String temperatureLimit = info.get("temperatureLimit");
 
-        //默认粉尘浓度预警值为50g每立方米，温度值30度以上
-        if (info.get("dustLimit") == null || info.get("temperatureLimit") == null) {
-            dustLimit = 50;
-            temperatureLimit = 30;
-        } else {
-            dustLimit = Float.parseFloat(info.get("dustLimit"));
-            temperatureLimit = Float.parseFloat(info.get("temperatureLimit"));
-        }
         ObjectMapper mapper = new ObjectMapper();
         Map<String, Object> map = new HashMap<>();
         map.put("data",dustEnvService.getDustEnvData(dustLimit,temperatureLimit));
