@@ -59,7 +59,7 @@ public class LoginController {
         if (token == null) {
             map.put("currentUser",null);
         } else {
-            Claims claims = ParserJwt.tokenToOut(token);
+            Claims claims = ParserJwt.decoding(token);
             int userId = Integer.parseInt(claims.getId());
             String userName = claims.getSubject();
             User user = loginService.findUserById(userId);

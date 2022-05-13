@@ -3,10 +3,10 @@ package cn.bianwenkai.service.Impl;
 import cn.bianwenkai.entity.DustEnvironment;
 import cn.bianwenkai.mapper.DustEnvDataMapper;
 import cn.bianwenkai.service.DustEnvService;
+import cn.bianwenkai.utils.BeanProvider;
 import cn.bianwenkai.utils.HistogramData;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,20 +18,21 @@ import java.util.List;
 @Service
 public class DustEnvServiceImpl implements DustEnvService {
 
-    @Resource
-    private DustEnvDataMapper dustEnvDataMapper;
-
     @Override
     public List<Object> getDustEnvData(String dust, String temperature) {
 
         float dustLimit = (dust == null) ? 50f : Float.parseFloat(dust);
         float temperatureLimit = (temperature == null) ? 30 : Float.parseFloat(temperature);
 
+
         List<DustEnvironment> list = new ArrayList<>();
         List<HistogramData> dataList = new ArrayList<>();
         List<Object> combineList = new ArrayList<>();
         //如果粉尘浓度或者温湿度过高，则进行预警
-        for (DustEnvironment de : dustEnvDataMapper.GetEnvData()) {
+
+        DustEnvDataMapper bean = (DustEnvDataMapper)BeanProvider.getBean(DustEnvDataMapper.class);
+
+        for (DustEnvironment de : bean.GetEnvData()) {
             String[] tag = new String[1];
             if (de.getDustDensity() > dustLimit || de.getTemperature() > temperatureLimit) {
                 tag[0] = "严重";

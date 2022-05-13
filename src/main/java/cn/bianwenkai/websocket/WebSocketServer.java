@@ -1,7 +1,10 @@
 package cn.bianwenkai.websocket;
 
+import cn.bianwenkai.service.DustEnvService;
+import cn.bianwenkai.service.Impl.DustEnvServiceImpl;
 import cn.bianwenkai.utils.ParserJwt;
-import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
@@ -10,7 +13,12 @@ import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author BianWenKai
@@ -41,6 +49,8 @@ public class WebSocketServer {
      */
     private String accountId="";
     private String token ="";
+    private String message = null;
+    ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(8);
 
     /**
      * logger
@@ -63,18 +73,20 @@ public class WebSocketServer {
         session.setMaxIdleTimeout(3600000);
 
         //解析令牌，拿取用户信息
-        String accountId = ParserJwt.tokenToOut(token).getId();
+        String accountId = ParserJwt.decoding(token).getId();
         this.accountId = accountId;
-        System.out.println("================" +accountId);
+
 
         //存储websocket连接，存在内存中，若有同一个用户同时在线，也会存，不会覆盖原有记录
         webSocketMap.put(accountId, this);
-        System.out.println("++++++++++++++");
-        logger.info("Open a WebSocket by " + ParserJwt.tokenToOut(token).getSubject());
+
+
+        logger.info("Open a WebSocket by " + ParserJwt.decoding(token).getSubject());
 
         try {
-            sendMessage(JSON.toJSONString("连接成功"));
-        } catch (IOException e) {
+            //sendMessage(JSON.toJSONString("连接成功"));
+            init();
+        } catch (Exception e) {
             e.printStackTrace();
             throw new Exception("websocket IO异常！！！！");
         }
@@ -92,11 +104,18 @@ public class WebSocketServer {
         logger.info("close a websocket, concurrentHashMap remove sessionId= {}"+accountId);
     }
 
+
+
     /**
      * 接收到客户端消息时触发
      */
     @OnMessage
-    public void onMessage(String message) {
+    public void onMessage(String message) throws Exception {
+
+       // sendMessage(JSON.toJSONString("收到消息"));
+
+        this.message = message;
+        //新建定时线程池
 
         logger.info("receive a message from client id={},msg={}",accountId, message);
     }
@@ -113,16 +132,42 @@ public class WebSocketServer {
      * @param message 消息字符串
      * @throws IOException
      */
-    public void sendMessage(String message) throws IOException {
+    public void sendMessage(String message){
         //需要使用同步机制，否则多并发时会因阻塞而报错
-        synchronized(this.session) {
+//        synchronized(this.session) {
             try {
                 this.session.getBasicRemote().sendText(message);
             } catch (IOException e) {
                 logger.error("发送给用户 ["+this.accountId +"] 的消息出现错误",e.getMessage());
-                throw e;
+
             }
         }
+//    }
+
+
+    private DustEnvService dustEnvService = new DustEnvServiceImpl();
+
+
+//    @PostConstruct
+    public  void init(){
+        //新建定时线程池
+        Task task = new Task();
+        //用于定时发送
+        scheduledExecutorService.scheduleAtFixedRate(task,10,10, TimeUnit.SECONDS);
     }
 
+    //定时自动推送数据
+    class Task implements Runnable {
+        @Override
+        public void run() {
+            String string= "{\"dustLimit\":\"25\",\"temperatureLimit\":\"55\"}";
+                JSONObject obj = (JSONObject) JSON.parse(string);
+                String dust = (String) obj.get("dustLimit");
+                String temperature =(String) obj.get("temperatureLimit");
+                Map<String, Object> map = new HashMap<>();
+                map.put("data",dustEnvService.getDustEnvData(dust, temperature));
+                sendMessage(JSON.toJSONString(map));
+
+        }
+    }
 }

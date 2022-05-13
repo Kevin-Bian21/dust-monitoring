@@ -52,9 +52,9 @@ class DustMonitorApplicationTests {
     }
 
     @Test
-    public void parseJsonString() {
-       String msg= "{\"dustLimit\":\"25\",\"temperatureLimit\":\"55\"}";
-        JSONObject obj = (JSONObject) JSON.parse(msg);
+    public void test() {
+       String string= "{\"dustLimit\":\"25\",\"temperatureLimit\":\"55\"}";
+        JSONObject obj = (JSONObject) JSON.parse(string);
         String str = (String) obj.get("dustLimit");
         System.out.println(str);
     }

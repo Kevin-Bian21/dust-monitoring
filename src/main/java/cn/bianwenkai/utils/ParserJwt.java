@@ -11,7 +11,7 @@ import java.text.SimpleDateFormat;
  **/
 public class ParserJwt {
 
-    public static Claims tokenToOut(String token) {
+    public static Claims decoding(String token) {
         Claims claims = Jwts.parser()
                 .setSigningKey("antd")
                 .parseClaimsJws(token)
