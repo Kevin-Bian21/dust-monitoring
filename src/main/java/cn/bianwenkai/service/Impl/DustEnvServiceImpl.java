@@ -5,6 +5,7 @@ import cn.bianwenkai.mapper.DustEnvDataMapper;
 import cn.bianwenkai.service.DustEnvService;
 import cn.bianwenkai.utils.BeanProvider;
 import cn.bianwenkai.utils.HistogramData;
+import cn.bianwenkai.vo.SearchData;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,6 +18,8 @@ import java.util.List;
 
 @Service
 public class DustEnvServiceImpl implements DustEnvService {
+
+    private static SearchData searchData = new SearchData(1, 7);
 
     @Override
     public List<Object> getDustEnvData(String dust, String temperature) {
@@ -32,9 +35,9 @@ public class DustEnvServiceImpl implements DustEnvService {
 
         DustEnvDataMapper bean = (DustEnvDataMapper)BeanProvider.getBean(DustEnvDataMapper.class);
 
-        for (DustEnvironment de : bean.GetEnvData()) {
+        for (DustEnvironment de : bean.GetEnvData(searchData.getStart(), searchData.getEnd())) {
             String[] tag = new String[1];
-            if (de.getDustDensity() > dustLimit || de.getTemperature() > temperatureLimit) {
+            if (de.getDustDensity() > dustLimit && de.getTemperature() > temperatureLimit) {
                 tag[0] = "严重";
                 de.setTags(tag);
             } else{
@@ -56,6 +59,9 @@ public class DustEnvServiceImpl implements DustEnvService {
             }
             list.add(de);
         }
+        searchData.setStart(searchData.getEnd()+1);
+        searchData.setEnd(searchData.getEnd() +7);
+        System.out.println(searchData.getEnd());
         combineList.add(list);
         combineList.add(dataList);
 

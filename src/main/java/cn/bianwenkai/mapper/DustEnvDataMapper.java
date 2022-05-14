@@ -14,7 +14,7 @@ import java.util.List;
 @Mapper
 public interface DustEnvDataMapper {
 
-    List<DustEnvironment> GetEnvData();
+    List<DustEnvironment> GetEnvData(int start, int end);
 
     WarningData GetWarningData();
 
