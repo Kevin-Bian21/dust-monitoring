@@ -1,7 +1,6 @@
 package cn.bianwenkai.mapper;
 
 import cn.bianwenkai.entity.DustEnvironment;
-import cn.bianwenkai.entity.WarningData;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -16,6 +15,6 @@ public interface DustEnvDataMapper {
 
     List<DustEnvironment> GetEnvData(int start, int end);
 
-    WarningData GetWarningData();
+    List<DustEnvironment> GetSingleMonitorLocalData(String monitorLocal);
 
 }

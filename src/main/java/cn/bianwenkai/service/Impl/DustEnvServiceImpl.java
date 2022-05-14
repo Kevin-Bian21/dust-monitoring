@@ -6,10 +6,11 @@ import cn.bianwenkai.service.DustEnvService;
 import cn.bianwenkai.utils.BeanProvider;
 import cn.bianwenkai.utils.HistogramData;
 import cn.bianwenkai.vo.SearchData;
+import com.alibaba.fastjson2.JSON;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.annotation.Resource;
+import java.util.*;
 
 /**
  * @author BianWenKai
@@ -21,6 +22,16 @@ public class DustEnvServiceImpl implements DustEnvService {
 
     private static SearchData searchData = new SearchData(1, 7);
 
+    @Resource
+    private DustEnvDataMapper dustEnvDataMapper;
+
+
+    /**
+     * 通过工具类来获取DustEnvMapper实例对象，线程中不允许通过注解来注入对象
+     * @param dust
+     * @param temperature
+     * @return
+     */
     @Override
     public List<Object> getDustEnvData(String dust, String temperature) {
 
@@ -67,5 +78,35 @@ public class DustEnvServiceImpl implements DustEnvService {
 
         System.out.println(dataList);
         return combineList;
+    }
+
+
+    /**
+     * 获取具体监测位置的数据
+     * @param local
+     * @return
+     */
+
+    @Override
+    public String getSingleMonitorLocalData(String local) {
+        Map<String, Object> map = new HashMap<>();
+        List<Float> dustList = new ArrayList<>();
+        List<Float> temperatureList = new ArrayList<>();
+        List<Float> humidityList = new ArrayList<>();
+        List<Float> windSpeedList = new ArrayList<>();
+        List<Object> monitorDataTimeList = new ArrayList<>();
+        for (DustEnvironment de : dustEnvDataMapper.GetSingleMonitorLocalData(local)) {
+            dustList.add(de.getDustDensity());
+            temperatureList.add(de.getTemperature());
+            humidityList.add(de.getHumidity());
+            windSpeedList.add(de.getWindSpeed());
+            monitorDataTimeList.add(de.getMonitorDateTime());
+        }
+        map.put("dustDensity", dustList);
+        map.put("temperature", temperatureList);
+        map.put("humidity", humidityList);
+        map.put("windSpeed", windSpeedList);
+        map.put("monitorTime", monitorDataTimeList);
+        return JSON.toJSONString(map);
     }
 }

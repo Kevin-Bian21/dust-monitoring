@@ -6,12 +6,10 @@ spring:
   datasource:
     username: root
     password: bwk123
-    url: jdbc:mysql://localhost:3306/dust_monitor?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/dust_monitor?useUnicode=true&characterEncoding=utf-8&useSSL=true&&serverTimezone=Asia/Shanghai
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
   mvc:
-    format:
-      date-time: yyyy-MM-dd HH:mm:ss   # 时间日期格式化
     pathmatch:
       matching-strategy: ant_path_matcher
   jackson:

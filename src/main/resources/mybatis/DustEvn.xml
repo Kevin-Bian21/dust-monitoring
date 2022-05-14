@@ -10,9 +10,12 @@
         where id between #{start} and #{end};
     </select>
 
-    <select id="GetWarningData" resultType="WarningData">
-        select dust_limit,temperature_limit,humidity_limit,wind_speed_limit
-        from warning_data
+
+    <select id="GetSingleMonitorLocalData" resultType="DustEnvironment">
+        select ROUND(avg(dust_density),2) as dust_density,ROUND(avg(temperature),2) as temperature,ROUND(avg(humidity),2) as humidity,ROUND(avg(wind_speed),2) as wind_speed,date_format(monitor_datetime,'%Y-%m-%d %H:00:00') as monitor_datetime
+        from environment_info
+        where monitor_local = #{local}
+        group by date_format(monitor_datetime, '%Y-%m-%d %H')
     </select>
 
 </mapper>

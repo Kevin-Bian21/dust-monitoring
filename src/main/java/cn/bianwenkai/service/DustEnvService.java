@@ -10,6 +10,6 @@ public interface DustEnvService {
 
     List<Object> getDustEnvData(String dustLimit, String  temperatureLimit);
 
-//    WarningData getWarningData();
+    String getSingleMonitorLocalData(String local);
 
 }

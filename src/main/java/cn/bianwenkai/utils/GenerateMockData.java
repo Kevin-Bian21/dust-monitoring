@@ -21,7 +21,7 @@ public class GenerateMockData {
         SimpleDateFormat tempDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Calendar calendar = Calendar.getInstance();
 
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 4320; i++) {
             for (int j = 0; j < 7; j++) {
                 switch (j) {
                     case 0 : System.out.println("(default,\t"  + "'一号监测点'" + ",\t" +  getDust()  + ",\t" + "'"+ tempDate.format(calendar.getTime()) +"'" + ",\t" + getTemperature()  + ",\t" + getHumidity()  + ",\t" +getWindSpeed()  + "),\t" ); break;
@@ -34,7 +34,7 @@ public class GenerateMockData {
                     default:  break;
                 }
             }
-            calendar.add(Calendar.SECOND,10);
+            calendar.add(Calendar.SECOND,20);
         }
         fileOutputStream.close();
         printStream.close();

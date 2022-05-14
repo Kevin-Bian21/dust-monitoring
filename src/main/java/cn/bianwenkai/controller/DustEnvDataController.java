@@ -34,4 +34,11 @@ public class DustEnvDataController {
         return mapper.writeValueAsString(map);
     }
 
+
+    @GetMapping("/getDataThroughMonitorLocal")
+    @ResponseBody
+    public String getSingleMonitorLocalData(@RequestParam("local") String local) {
+        return dustEnvService.getSingleMonitorLocalData(local) ;
+    }
+
 }
