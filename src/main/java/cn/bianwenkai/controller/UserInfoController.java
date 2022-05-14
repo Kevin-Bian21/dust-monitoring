@@ -4,6 +4,7 @@ import cn.bianwenkai.service.UserInfoService;
 import com.alibaba.fastjson2.JSON;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -16,13 +17,14 @@ import java.util.Map;
  **/
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping(value = "/api" ,produces = {"application/json;charset=UTF-8"})
 public class UserInfoController {
 
     @Resource
     private UserInfoService userInfoService;
 
     @GetMapping("/allUserInfo")
+    @ResponseBody
     public String getAllUserInfo() {
         Map<String, Object> map = new HashMap<>();
         map.put("data",userInfoService.getAllUserInfo());

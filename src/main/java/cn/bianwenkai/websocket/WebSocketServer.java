@@ -45,11 +45,12 @@ public class WebSocketServer {
     private Session session;
 
     /**
-     * 用户id
+     * 用户id ，通过解析token获取
+     * message 在用户没有进行表单提交时默认使用该数据
      */
     private String accountId="";
     private String token ="";
-    private String message = null;
+    private String message = "{\"dustLimit\":\"50\",\"temperatureLimit\":\"30\"}";
     ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(8);
 
     /**
@@ -152,7 +153,7 @@ public class WebSocketServer {
     public  void init(){
         //新建定时线程池
         Task task = new Task();
-        //用于定时发送
+        //每10秒向前端推送一次数据
         scheduledExecutorService.scheduleAtFixedRate(task,10,10, TimeUnit.SECONDS);
     }
 
@@ -160,14 +161,12 @@ public class WebSocketServer {
     class Task implements Runnable {
         @Override
         public void run() {
-            String string= "{\"dustLimit\":\"25\",\"temperatureLimit\":\"55\"}";
-                JSONObject obj = (JSONObject) JSON.parse(string);
-                String dust = (String) obj.get("dustLimit");
-                String temperature =(String) obj.get("temperatureLimit");
-                Map<String, Object> map = new HashMap<>();
-                map.put("data",dustEnvService.getDustEnvData(dust, temperature));
-                sendMessage(JSON.toJSONString(map));
-
+            JSONObject obj = (JSONObject) JSON.parse(message);
+            String dust = (String) obj.get("dustLimit");
+            String temperature =(String) obj.get("temperatureLimit");
+            Map<String, Object> map = new HashMap<>();
+            map.put("data",dustEnvService.getDustEnvData(dust, temperature));
+            sendMessage(JSON.toJSONString(map));
         }
     }
 }
