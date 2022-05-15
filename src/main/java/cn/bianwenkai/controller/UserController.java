@@ -1,7 +1,10 @@
 package cn.bianwenkai.controller;
 
+import cn.bianwenkai.entity.User;
 import cn.bianwenkai.service.UserService;
+import cn.bianwenkai.vo.CommonVo;
 import com.alibaba.fastjson2.JSON;
+import com.github.pagehelper.PageHelper;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -21,12 +24,19 @@ public class UserController {
     @Resource
     private UserService userService;
 
-    @GetMapping("/allUserInfo")
+    /**
+     * 返回满足查询条件的用户信息，如果查询条件为空，则返回所有用户
+     * @param commonVo
+     * @return
+     */
+    @PostMapping("/allUserInfo")
     @ResponseBody
-    public String getAllUserInfo() {
-        Map<String, Object> map = new HashMap<>();
-        map.put("data",userService.getAllUserInfo());
-        return JSON.toJSONString(map);
+    public String getAllUserInfo(@RequestBody CommonVo commonVo) {
+
+        PageHelper.startPage(commonVo.getPage(), commonVo.getLimit());
+        List<User> users = userService.getAllUserInfo(commonVo);
+
+        return JSON.toJSONString(users);
     }
 
     /**

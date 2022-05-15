@@ -3,6 +3,7 @@ package cn.bianwenkai.service.Impl;
 import cn.bianwenkai.entity.User;
 import cn.bianwenkai.mapper.UserMapper;
 import cn.bianwenkai.service.UserService;
+import cn.bianwenkai.vo.CommonVo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,8 +22,8 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public List<User> getAllUserInfo() {
-        return userMapper.AllUserInfo();
+    public List<User> getAllUserInfo(CommonVo commonVo) {
+        return userMapper.AllUserInfo(commonVo);
     }
 
     @Override

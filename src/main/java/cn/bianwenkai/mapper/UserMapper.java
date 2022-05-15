@@ -1,6 +1,7 @@
 package cn.bianwenkai.mapper;
 
 import cn.bianwenkai.entity.User;
+import cn.bianwenkai.vo.CommonVo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
 @Mapper
 public interface UserMapper {
 
-    List<User> AllUserInfo();
+    List<User> AllUserInfo(CommonVo commonVo);
 
     int DeleteUser(int userId);
 

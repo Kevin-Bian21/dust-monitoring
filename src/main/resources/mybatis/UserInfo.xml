@@ -6,8 +6,17 @@
 
     <select id="AllUserInfo" resultType="User">
         select user_id,user_name,login_account,user_pwd as password, avatar , phone,email,generate_time,last_login_time,login_count
-        from user_info;
+        from user_info
+        <where>
+            <if test="searchMessage != null">
+                MATCH(user_name, login_account, phone,email) AGAINST( #{searchMessage} IN BOOLEAN MODE )
+            </if>
+            <if test="startDateTime != null and endDateTime != null">
+                and generate_time between #{startDateTime} and #{endDateTime}
+            </if>
+        </where>
     </select>
+
 
     <delete id="DeleteUser">
         delete

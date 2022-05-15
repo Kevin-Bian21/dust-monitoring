@@ -1,6 +1,7 @@
 package cn.bianwenkai.service;
 
 import cn.bianwenkai.entity.User;
+import cn.bianwenkai.vo.CommonVo;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  **/
 public interface UserService {
 
-    List<User> getAllUserInfo();
+    List<User> getAllUserInfo(CommonVo commonVo);
 
     int deleteUser(int userId);
 
