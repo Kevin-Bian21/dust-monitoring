@@ -31,4 +31,9 @@ public class UserServiceImpl implements UserService {
     public int deleteUser(int id) {
         return  userMapper.DeleteUser(id);
     }
+
+    @Override
+    public int addUser(User user) {
+        return userMapper.AddUser(user);
+    }
 }

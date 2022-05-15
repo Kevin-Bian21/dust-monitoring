@@ -5,11 +5,12 @@
 <mapper namespace="cn.bianwenkai.mapper.UserMapper">
 
     <select id="AllUserInfo" resultType="User">
-        select user_id,user_name,login_account,user_pwd as password, avatar , phone,email,generate_time,last_login_time,login_count
-        from user_info
+        select user_id,user_name,login_account,user_pwd as password, avatar , phone,email,generate_time,last_login_time,login_count,role_name as access
+        from user_info u, role_info r
         <where>
+            u.access = r.role_id
             <if test="searchMessage != null">
-                MATCH(user_name, login_account, phone,email) AGAINST( #{searchMessage} IN BOOLEAN MODE )
+                and MATCH(user_name, login_account, phone,email) AGAINST( #{searchMessage} IN BOOLEAN MODE )
             </if>
             <if test="startDateTime != null and endDateTime != null">
                 and generate_time between #{startDateTime} and #{endDateTime}
@@ -23,5 +24,11 @@
         from user_info
         where user_id = #{userId}
     </delete>
+
+
+    <insert id="AddUser" parameterType="User">
+        insert into dust_monitor.user_info
+        values (default, #{userName} , #{loginAccount},#{passWord},null,null,null,NOW(), NOW(),null,#{access});
+    </insert>
 
 </mapper>

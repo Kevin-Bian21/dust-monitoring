@@ -58,7 +58,22 @@ public class UserController {
             map.put("message", "删除成功!");
         } else {
             map.put("success",false);
-            map.put("message","删除失败");
+            map.put("message","删除失败!");
+        }
+        return JSON.toJSONString(map);
+    }
+
+    @PostMapping("/addUser")
+    @ResponseBody
+    public String addUser(@RequestBody User user) {
+        int i = userService.addUser(user);
+        Map<String, Object> map = new HashMap<>();
+        if (i > 0) {
+            map.put("success",true);
+            map.put("message", "添加成功!");
+        } else {
+            map.put("success",false);
+            map.put("message","添加失败!");
         }
         return JSON.toJSONString(map);
     }
