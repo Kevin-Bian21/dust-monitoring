@@ -10,16 +10,10 @@
         where  login_account  = #{account} or phone = #{account} or email = #{account};
     </select>
 
-    <select id="UserIdentity" resultType="String">
-        select role_name
-        from role_info r, user_role_info ur
-        where r.role_id = ur.role_id and ur.user_id = #{id};
-    </select>
-
     <select id="FindUserById" resultType="User">
-        select user_id,user_name,login_account,user_pwd as password, avatar , phone,email,generate_time,last_login_time,login_count
-        from user_info
-        where  user_id = #{id};
+        select user_id,user_name,login_account, avatar , phone,email,generate_time,r.role_name as access
+        from user_info u, role_info r
+        where  u.access = r.role_id and user_id = #{id} ;
     </select>
 
 </mapper>

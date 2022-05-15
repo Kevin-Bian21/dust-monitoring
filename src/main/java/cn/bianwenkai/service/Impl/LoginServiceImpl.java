@@ -29,11 +29,6 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public String userIdentity(int id) {
-        return loginMapper.UserIdentity(id);
-    }
-
-    @Override
     public User findUserById(int id) {
         return loginMapper.FindUserById(id);
     }

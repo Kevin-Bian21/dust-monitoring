@@ -63,9 +63,7 @@ public class LoginController {
             int userId = Integer.parseInt(claims.getId());
             String userName = claims.getSubject();
             User user = loginService.findUserById(userId);
-            user.setAccess("admin");
             if (claims.getId() != null && userName != null && userName.equals(user.getUserName())) {
-                user.setPassWord("");
                 return mapper.writeValueAsString(user);
             }
         }
