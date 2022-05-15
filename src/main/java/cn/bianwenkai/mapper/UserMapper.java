@@ -11,8 +11,10 @@ import java.util.List;
  **/
 
 @Mapper
-public interface UserInfoMapper {
+public interface UserMapper {
 
     List<User> AllUserInfo();
+
+    int DeleteUser(int userId);
 
 }
