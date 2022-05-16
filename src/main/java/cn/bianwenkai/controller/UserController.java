@@ -77,4 +77,19 @@ public class UserController {
         }
         return JSON.toJSONString(map);
     }
+
+    @PostMapping("/updateUser")
+    @ResponseBody
+    public String updateUser(@RequestBody User user) {
+        int i = userService.updateUser(user);
+        Map<String, Object> map = new HashMap<>();
+        if (i > 0) {
+            map.put("success",true);
+            map.put("message", "修改成功!");
+        } else {
+            map.put("success",false);
+            map.put("message","修改失败!");
+        }
+        return JSON.toJSONString(map);
+    }
 }

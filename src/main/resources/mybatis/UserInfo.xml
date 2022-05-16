@@ -31,4 +31,11 @@
         values (default, #{userName} , #{loginAccount},#{passWord},null,null,null,NOW(), NOW(),null,#{access});
     </insert>
 
+
+    <update id="UpdateUser" parameterType="User">
+        update user_info
+        set user_name = #{userName}, login_account = #{loginAccount},user_pwd = #{passWord}, phone = #{phone}, email = #{email},access = #{access}
+        where user_id = #{userId};
+    </update>
+
 </mapper>
