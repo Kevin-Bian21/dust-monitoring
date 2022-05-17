@@ -16,4 +16,10 @@
         where  u.access = r.role_id and user_id = #{id} ;
     </select>
 
+    <update id="UpdateLoginInfo">
+        update dust_monitor.user_info
+        set login_count = user_info.login_count + 1, last_login_time = now()
+        where dust_monitor.user_info.user_id = #{id};
+    </update>
+
 </mapper>

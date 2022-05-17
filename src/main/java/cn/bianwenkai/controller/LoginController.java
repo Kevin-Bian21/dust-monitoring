@@ -35,7 +35,8 @@ public class LoginController {
 
         if (user != null) {
             map.put("success",true);
-            map.put("message","");
+            map.put("message","登录成功!");
+            loginService.updateLoginInfo(user.getUserId());  //登录成功更新用户登录信息
             userMap.put("id",user.getUserId());
             userMap.put("username",user.getUserName());
             map.put("data", userMap );

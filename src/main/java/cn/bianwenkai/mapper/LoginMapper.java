@@ -16,4 +16,7 @@ public interface LoginMapper {
     //根据用户Id查找用户
     User FindUserById(int id);
 
+    //用户登录后，更新登录信息
+    int UpdateLoginInfo(int id);
+
 }

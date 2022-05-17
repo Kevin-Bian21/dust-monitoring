@@ -34,7 +34,8 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public int UpdateLoginInfo(int id) {
-        return 0;
+    public int updateLoginInfo(int id) {
+        return loginMapper.UpdateLoginInfo(id);
     }
+
 }

@@ -20,6 +20,7 @@ public class CreateJwt {
         JwtBuilder jwtBuilder = Jwts.builder()
                 .setId(user.getUserId() + "")//设置需要加密的内容
                 .setSubject(user.getUserName())
+                .claim("role",user.getAccess())
                 .setIssuedAt(new Date())//token保留时间
                 .signWith(SignatureAlgorithm.HS256, "antd").setExpiration(
                         new Date(new Date().getTime() + 86400000)

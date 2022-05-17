@@ -22,7 +22,7 @@ public class GenerateMockData {
         Calendar calendar = Calendar.getInstance();
 
         for (int i = 0; i < 4320; i++) {
-            for (int j = 0; j < 7; j++) {
+            for (int j = 0; j < 10; j++) {
                 switch (j) {
                     case 0 : System.out.println("(default,\t"  + "'一号监测点'" + ",\t" +  getDust()  + ",\t" + "'"+ tempDate.format(calendar.getTime()) +"'" + ",\t" + getTemperature()  + ",\t" + getHumidity()  + ",\t" +getWindSpeed()  + "),\t" ); break;
                     case 1 : System.out.println("(default,\t"  + "'二号监测点'" + ",\t" +  getDust()  + ",\t" + "'"+ tempDate.format(calendar.getTime()) +"'" + ",\t" + getTemperature()  + ",\t" + getHumidity()  + ",\t" +getWindSpeed()  + "),\t" ); break;
@@ -31,6 +31,9 @@ public class GenerateMockData {
                     case 4 : System.out.println("(default,\t"  + "'五号监测点'" + ",\t" +  getDust()  + ",\t" + "'"+ tempDate.format(calendar.getTime()) +"'" + ",\t" + getTemperature()  + ",\t" + getHumidity()  + ",\t" +getWindSpeed()  + "),\t" ); break;
                     case 5 : System.out.println("(default,\t"  + "'六号监测点'" + ",\t" +  getDust()  + ",\t" + "'"+ tempDate.format(calendar.getTime()) +"'" + ",\t" + getTemperature()  + ",\t" + getHumidity()  + ",\t" +getWindSpeed()  + "),\t" ); break;
                     case 6 : System.out.println("(default,\t"  + "'七号监测点'" + ",\t" +  getDust()  + ",\t" + "'"+ tempDate.format(calendar.getTime()) +"'" + ",\t" + getTemperature()  + ",\t" + getHumidity()  + ",\t" +getWindSpeed()  + "),\t" ); break;
+                    case 7 : System.out.println("(default,\t"  + "'八号监测点'" + ",\t" +  getDust()  + ",\t" + "'"+ tempDate.format(calendar.getTime()) +"'" + ",\t" + getTemperature()  + ",\t" + getHumidity()  + ",\t" +getWindSpeed()  + "),\t" ); break;
+                    case 8 : System.out.println("(default,\t"  + "'九号监测点'" + ",\t" +  getDust()  + ",\t" + "'"+ tempDate.format(calendar.getTime()) +"'" + ",\t" + getTemperature()  + ",\t" + getHumidity()  + ",\t" +getWindSpeed()  + "),\t" ); break;
+                    case 9 : System.out.println("(default,\t"  + "'十号监测点'" + ",\t" +  getDust()  + ",\t" + "'"+ tempDate.format(calendar.getTime()) +"'" + ",\t" + getTemperature()  + ",\t" + getHumidity()  + ",\t" +getWindSpeed()  + "),\t" ); break;
                     default:  break;
                 }
             }

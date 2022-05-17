@@ -13,7 +13,7 @@ public interface LoginService {
     User findUserById(int id);
 
     //用户登录后，更新登录信息
-    int UpdateLoginInfo(int id);
+    int updateLoginInfo(int id);
 }
 
 

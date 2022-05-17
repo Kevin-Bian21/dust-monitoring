@@ -20,7 +20,7 @@ import java.util.*;
 @Service
 public class DustEnvServiceImpl implements DustEnvService {
 
-    private static SearchData searchData = new SearchData(1, 7);
+    private static SearchData searchData = new SearchData(1, 10);
 
     @Resource
     private DustEnvDataMapper dustEnvDataMapper;
@@ -67,8 +67,13 @@ public class DustEnvServiceImpl implements DustEnvService {
             }
             list.add(de);
         }
+        //为了模拟硬件每20秒传一次数据，防止数据溢出
+        if (searchData.getEnd()>Integer.MAX_VALUE - 100) {
+            searchData.setStart(1);
+            searchData.setEnd(10);
+        }
         searchData.setStart(searchData.getEnd()+1);
-        searchData.setEnd(searchData.getEnd() +7);
+        searchData.setEnd(searchData.getEnd() +10);
         System.out.println(searchData.getEnd());
         combineList.add(list);
         combineList.add(dataList);
