@@ -23,6 +23,6 @@ public class DustEnvironment {
     private Float temperature;
     private Float humidity;
     private Float windSpeed;
-    private String[] tags;
+    private String tag;
 
 }

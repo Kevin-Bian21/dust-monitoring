@@ -47,13 +47,10 @@ public class DustEnvServiceImpl implements DustEnvService {
         DustEnvDataMapper bean = (DustEnvDataMapper)BeanProvider.getBean(DustEnvDataMapper.class);
 
         for (DustEnvironment de : bean.GetEnvData(searchData.getStart(), searchData.getEnd())) {
-            String[] tag = new String[1];
             if (de.getDustDensity() > dustLimit && de.getTemperature() > temperatureLimit) {
-                tag[0] = "严重";
-                de.setTags(tag);
+                de.setTag("严重");
             } else{
-                tag[0] = "良好";
-                de.setTags(tag);
+                de.setTag("良好");
             }
             //为直方图数据进行一个数据的映射，以符合前端要求的数据格式
             for (int i = 0; i < 4; i++) {
