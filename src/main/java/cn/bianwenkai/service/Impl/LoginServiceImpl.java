@@ -32,4 +32,9 @@ public class LoginServiceImpl implements LoginService {
     public User findUserById(int id) {
         return loginMapper.FindUserById(id);
     }
+
+    @Override
+    public int UpdateLoginInfo(int id) {
+        return 0;
+    }
 }

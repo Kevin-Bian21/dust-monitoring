@@ -106,4 +106,19 @@ public class DustEnvServiceImpl implements DustEnvService {
         map.put("monitorTime", monitorDataTimeList);
         return JSON.toJSONString(map);
     }
+
+    @Override
+    public String getMonitorVideo(int local) {
+        String src = null;
+        switch (local) {
+            case 1 : src = "https://bianwenkai.oss-cn-beijing.aliyuncs.com/video/local_1.mp4"; break;
+            case 2 : src = "https://bianwenkai.oss-cn-beijing.aliyuncs.com/video/local-2.mp4"; break;
+            case 3 : src = "https://bianwenkai.oss-cn-beijing.aliyuncs.com/video/local-3.mp4"; break;
+            case 4 : src = "https://bianwenkai.oss-cn-beijing.aliyuncs.com/video/local-4.mp4"; break;
+            case 5 : src = "https://bianwenkai.oss-cn-beijing.aliyuncs.com/video/local-5.mp4"; break;
+            case 6 : src = "https://bianwenkai.oss-cn-beijing.aliyuncs.com/video/monitor-video.mp4"; break;
+            default:  src = "https://bianwenkai.oss-cn-beijing.aliyuncs.com/video/monitor-video.mp4"; break;
+        }
+        return src;
+    }
 }

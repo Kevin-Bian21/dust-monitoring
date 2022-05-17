@@ -41,4 +41,10 @@ public class DustEnvDataController {
         return dustEnvService.getSingleMonitorLocalData(local) ;
     }
 
+    @GetMapping("/getMonitorVideoSrc")
+    @ResponseBody
+    public String getMonitorVideo(@RequestParam("local") Integer local) {
+        return dustEnvService.getMonitorVideo(local);
+    }
+
 }

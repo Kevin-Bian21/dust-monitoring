@@ -12,4 +12,6 @@ public interface DustEnvService {
 
     String getSingleMonitorLocalData(String local);
 
+    String getMonitorVideo(int local);
+
 }

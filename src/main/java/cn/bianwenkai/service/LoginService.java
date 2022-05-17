@@ -11,6 +11,9 @@ public interface LoginService {
     User login(String account, String password);
 
     User findUserById(int id);
+
+    //用户登录后，更新登录信息
+    int UpdateLoginInfo(int id);
 }
 
 
