@@ -6,17 +6,18 @@
 
     <select id="AllUserInfo" resultType="User">
         select user_id,user_name,login_account,user_pwd as password, avatar , phone,email,generate_time,last_login_time,login_count,role_name as access
-        from user_info u, role_info r
+        from user_info, role_info
         <where>
-            u.access = r.role_id
+            user_info.access = role_info.role_id
             <if test="searchMessage != null">
                 and MATCH(user_name, login_account, phone,email) AGAINST( #{searchMessage} IN BOOLEAN MODE )
             </if>
             <if test="startDateTime != null and endDateTime != null">
                 and generate_time between #{startDateTime} and #{endDateTime}
             </if>
-            and access != 1
-            order by user_id
+            and user_info.access between ((select user_info.access from user_info where user_id = #{id}) +1) and 3
+            order by user_info.access, user_id
+
         </where>
     </select>
 

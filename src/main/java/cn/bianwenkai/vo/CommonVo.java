@@ -16,5 +16,6 @@ public class CommonVo {
     private String searchMessage;
     private String startDateTime;
     private String endDateTime;
+    private int id;
 
 }

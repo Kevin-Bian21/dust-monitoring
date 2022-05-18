@@ -11,6 +11,7 @@ import java.util.List;
  **/
 public interface UserService {
 
+    //只能管理比自己权限小的用户信息
     List<User> getAllUserInfo(CommonVo commonVo);
 
     int deleteUser(int userId);

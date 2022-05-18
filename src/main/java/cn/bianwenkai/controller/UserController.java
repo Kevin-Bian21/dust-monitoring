@@ -2,9 +2,11 @@ package cn.bianwenkai.controller;
 
 import cn.bianwenkai.entity.User;
 import cn.bianwenkai.service.UserService;
+import cn.bianwenkai.utils.ParserJwt;
 import cn.bianwenkai.vo.CommonVo;
 import com.alibaba.fastjson2.JSON;
 import com.github.pagehelper.PageHelper;
+import io.jsonwebtoken.Claims;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -31,9 +33,13 @@ public class UserController {
      */
     @PostMapping("/allUserInfo")
     @ResponseBody
-    public String getAllUserInfo(@RequestBody CommonVo commonVo) {
+    public String getAllUserInfo(@RequestBody CommonVo commonVo ,@RequestHeader("Authorization") String token) {
 
         PageHelper.startPage(commonVo.getPage(), commonVo.getLimit());
+        Claims claims = ParserJwt.decoding(token);
+        String id = claims.getId() == null ? "3" : claims.getId();
+        int userId = Integer.parseInt(id);
+        commonVo.setId(userId);
         List<User> users = userService.getAllUserInfo(commonVo);
 
         return JSON.toJSONString(users);
