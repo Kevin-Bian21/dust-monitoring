@@ -20,4 +20,6 @@ public interface UserService {
 
     int updateUser(User user);
 
+    int updatePassword(int userId, String newPassword);
+
 }

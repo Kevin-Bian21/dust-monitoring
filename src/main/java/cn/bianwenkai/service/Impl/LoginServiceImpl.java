@@ -23,6 +23,12 @@ public class LoginServiceImpl implements LoginService {
         User user = loginMapper.LoginByAccount(account);
         System.out.println(user.toString());
         if (user.getPassWord().equals(password)) {
+            if (user.getAccess().equals("1"))
+                user.setAccess("超级管理员");
+            else if (user.getAccess().equals("2"))
+                user.setAccess("管理员");
+            else
+                user.setAccess("普通用户");
             return user;
         }
         return null;

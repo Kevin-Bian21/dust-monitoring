@@ -41,4 +41,10 @@
         where user_id = #{userId};
     </update>
 
+    <update id="UpdatePassword">
+        update user_info
+        set user_pwd = #{newPassword}
+        where user_id = #{userId}
+    </update>
+
 </mapper>

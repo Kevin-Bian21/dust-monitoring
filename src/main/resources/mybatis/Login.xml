@@ -5,7 +5,7 @@
 <mapper namespace="cn.bianwenkai.mapper.LoginMapper">
 
     <select id="LoginByAccount" resultType="User">
-        select user_id,user_name,login_account,user_pwd as password, avatar , phone,email,generate_time,last_login_time,login_count
+        select user_id,user_name,login_account,user_pwd as password, access
         from user_info
         where  login_account  = #{account} or phone = #{account} or email = #{account};
     </select>

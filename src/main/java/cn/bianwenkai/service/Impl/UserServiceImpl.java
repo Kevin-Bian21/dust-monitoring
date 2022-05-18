@@ -41,4 +41,9 @@ public class UserServiceImpl implements UserService {
     public int updateUser(User user) {
         return userMapper.UpdateUser(user);
     }
+
+    @Override
+    public int updatePassword(int userId, String newPassword) {
+        return userMapper.UpdatePassword(userId, newPassword);
+    }
 }

@@ -22,4 +22,6 @@ public interface UserMapper {
 
     int UpdateUser(User user);
 
+    int UpdatePassword(int userId, String newPassword);
+
 }
