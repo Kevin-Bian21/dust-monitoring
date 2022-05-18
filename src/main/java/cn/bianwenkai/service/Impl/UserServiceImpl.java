@@ -1,49 +1,25 @@
 package cn.bianwenkai.service.Impl;
 
-import cn.bianwenkai.entity.User;
 import cn.bianwenkai.mapper.UserMapper;
 import cn.bianwenkai.service.UserService;
-import cn.bianwenkai.vo.CommonVo;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * @author BianWenKai
- * @DATE 2022/5/14 - 2:16
+ * @DATE 2022/5/18 - 23:29
  **/
-
 @Service
 public class UserServiceImpl implements UserService {
+
 
     @Resource
     private UserMapper userMapper;
 
     @Override
-    public List<User> getAllUserInfo(CommonVo commonVo) {
-        return userMapper.AllUserInfo(commonVo);
-    }
-
-    @Override
-    @Transactional
-    public int deleteUser(int id) {
-        return  userMapper.DeleteUser(id);
-    }
-
-    @Override
-    public int addUser(User user) {
-        return userMapper.AddUser(user);
-    }
-
-    @Override
-    public int updateUser(User user) {
-        return userMapper.UpdateUser(user);
-    }
-
-    @Override
     public int updatePassword(int userId, String newPassword) {
         return userMapper.UpdatePassword(userId, newPassword);
     }
+
 }
