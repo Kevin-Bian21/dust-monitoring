@@ -1,5 +1,8 @@
 package cn.bianwenkai.service;
 
+import cn.bianwenkai.entity.DustEnvironment;
+import cn.bianwenkai.vo.CommonVo;
+
 import java.util.List;
 
 /**
@@ -13,5 +16,7 @@ public interface DustEnvService {
     String getSingleMonitorLocalData(String local);
 
     String getMonitorVideo(int local);
+
+    List<DustEnvironment> getAllMonitorData(CommonVo commonVo);
 
 }

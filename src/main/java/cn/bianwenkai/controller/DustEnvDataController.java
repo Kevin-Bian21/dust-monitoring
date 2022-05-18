@@ -1,12 +1,17 @@
 package cn.bianwenkai.controller;
 
+import cn.bianwenkai.entity.DustEnvironment;
 import cn.bianwenkai.service.DustEnvService;
+import cn.bianwenkai.vo.CommonVo;
+import com.alibaba.fastjson2.JSON;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.pagehelper.PageHelper;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -45,6 +50,14 @@ public class DustEnvDataController {
     @ResponseBody
     public String getMonitorVideo(@RequestParam("local") Integer local) {
         return dustEnvService.getMonitorVideo(local);
+    }
+
+    @PostMapping("/getAllMonitorData")
+    @ResponseBody
+    public String getAllMonitorData(@RequestBody CommonVo commonVo){
+        PageHelper.startPage(commonVo.getPage(),commonVo.getLimit());
+        List<DustEnvironment> envData =  dustEnvService.getAllMonitorData(commonVo);
+        return JSON.toJSONString(envData);
     }
 
 }

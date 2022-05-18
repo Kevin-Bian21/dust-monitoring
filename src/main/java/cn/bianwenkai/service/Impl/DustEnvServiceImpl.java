@@ -5,6 +5,7 @@ import cn.bianwenkai.mapper.DustEnvDataMapper;
 import cn.bianwenkai.service.DustEnvService;
 import cn.bianwenkai.utils.BeanProvider;
 import cn.bianwenkai.utils.HistogramData;
+import cn.bianwenkai.vo.CommonVo;
 import cn.bianwenkai.vo.SearchData;
 import com.alibaba.fastjson2.JSON;
 import org.springframework.stereotype.Service;
@@ -125,5 +126,10 @@ public class DustEnvServiceImpl implements DustEnvService {
             default:  src = "https://bianwenkai.oss-cn-beijing.aliyuncs.com/video/monitor-video.mp4"; break;
         }
         return src;
+    }
+
+    @Override
+    public List<DustEnvironment> getAllMonitorData(CommonVo commonVo) {
+        return dustEnvDataMapper.AllMonitorData(commonVo);
     }
 }

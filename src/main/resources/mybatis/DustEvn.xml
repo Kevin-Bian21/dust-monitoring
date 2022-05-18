@@ -18,4 +18,19 @@
         group by date_format(monitor_datetime, '%Y-%m-%d %H')
     </select>
 
+
+    <select id="AllMonitorData" resultType="DustEnvironment">
+        select *
+        from environment_info
+        <where>
+            <if test="searchMessage != null">
+                monitor_local = #{searchMessage}
+            </if>
+            <if test="startDateTime != null and endDateTime != null">
+                and monitor_datetime between #{startDateTime} and #{endDateTime}
+            </if>
+        </where>
+        order by id
+    </select>
+
 </mapper>

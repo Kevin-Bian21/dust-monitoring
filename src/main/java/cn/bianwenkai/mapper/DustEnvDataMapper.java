@@ -1,6 +1,7 @@
 package cn.bianwenkai.mapper;
 
 import cn.bianwenkai.entity.DustEnvironment;
+import cn.bianwenkai.vo.CommonVo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -16,5 +17,7 @@ public interface DustEnvDataMapper {
     List<DustEnvironment> GetEnvData(int start, int end);
 
     List<DustEnvironment> GetSingleMonitorLocalData(String monitorLocal);
+
+    List<DustEnvironment> AllMonitorData(CommonVo commonVo);
 
 }
