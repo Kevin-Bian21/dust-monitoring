@@ -10,4 +10,10 @@
         where user_id = #{userId}
     </update>
 
+    <select id="GetPersonalDetails" resultType="User">
+        select login_account , user_name, avatar,phone, email
+        from user_info
+        where user_id = #{id}
+    </select>
+
 </mapper>

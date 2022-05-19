@@ -61,4 +61,17 @@ public class UserController {
         return JSON.toJSONString(map);
     }
 
+    @GetMapping("/getPersonalDetails")
+    @ResponseBody
+    public String logout(@RequestHeader("Authorization") String token) {
+        Map<String, Object> map = new HashMap<>();
+        if (token == null) {
+            map.put("success","no");
+            map.put("message", "登录过期，请退出重新登录");
+        } else {
+            map.put("success","ok");
+            map.put("data",userService.getPersonalDetails(Integer.parseInt(ParserJwt.decoding(token).getId())));
+        }
+        return JSON.toJSONString(map);
+    }
 }

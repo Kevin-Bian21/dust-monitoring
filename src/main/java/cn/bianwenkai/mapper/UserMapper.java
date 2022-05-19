@@ -1,5 +1,6 @@
 package cn.bianwenkai.mapper;
 
+import cn.bianwenkai.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -11,5 +12,7 @@ import org.apache.ibatis.annotations.Mapper;
 public interface UserMapper {
 
     int UpdatePassword(int userId, String newPassword);
+
+    User GetPersonalDetails(int id);
 
 }
