@@ -1,6 +1,7 @@
 package cn.bianwenkai.mapper;
 
 import cn.bianwenkai.entity.DustEnvironment;
+import cn.bianwenkai.entity.WarningData;
 import cn.bianwenkai.vo.CommonVo;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -19,5 +20,11 @@ public interface DustEnvDataMapper {
     List<DustEnvironment> GetSingleMonitorLocalData(String monitorLocal);
 
     List<DustEnvironment> AllMonitorData(CommonVo commonVo);
+
+    //记录预警的数据
+    int EarlyWarningRecord(WarningData warningData);
+
+    //统计预警数据
+    int NumberOfEarlyWarningRecord();
 
 }

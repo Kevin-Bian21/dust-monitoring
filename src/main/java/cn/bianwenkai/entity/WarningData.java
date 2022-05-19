@@ -1,6 +1,8 @@
 package cn.bianwenkai.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author BianWenKai
@@ -8,11 +10,13 @@ import lombok.Data;
  **/
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class WarningData {
 
+    private Integer id;
     private Float dustLimit;
     private Float temperatureLimit;
-    private Float humidityLimit;
-    private Float windSpeedLimit;
+    private String level;
 
 }

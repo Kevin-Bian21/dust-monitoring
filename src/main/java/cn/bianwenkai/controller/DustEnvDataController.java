@@ -60,4 +60,9 @@ public class DustEnvDataController {
         return JSON.toJSONString(envData);
     }
 
+    @GetMapping("/getNumberOfEarlyWarningRecord")
+    @ResponseBody
+    private int getNumberOfEarlyWarningRecord() {
+        return dustEnvService.NumberOfEarlyWarningRecord();
+    }
 }

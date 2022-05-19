@@ -19,4 +19,6 @@ public interface DustEnvService {
 
     List<DustEnvironment> getAllMonitorData(CommonVo commonVo);
 
+    int NumberOfEarlyWarningRecord();
+
 }

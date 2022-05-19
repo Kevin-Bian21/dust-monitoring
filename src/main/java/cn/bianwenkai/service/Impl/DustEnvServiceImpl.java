@@ -11,7 +11,10 @@ import com.alibaba.fastjson2.JSON;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author BianWenKai
@@ -50,6 +53,10 @@ public class DustEnvServiceImpl implements DustEnvService {
         for (DustEnvironment de : bean.GetEnvData(searchData.getStart(), searchData.getEnd())) {
             if (de.getDustDensity() > dustLimit && de.getTemperature() > temperatureLimit) {
                 de.setTag("严重");
+
+                //如果超过预警值则将其记录
+//                WarningData warningData = new WarningData(de.getId(),dustLimit,temperatureLimit,"严重");
+//                dustEnvDataMapper.EarlyWarningRecord(warningData);
             } else{
                 de.setTag("良好");
             }
@@ -122,8 +129,8 @@ public class DustEnvServiceImpl implements DustEnvService {
             case 3 : src = "https://bianwenkai.oss-cn-beijing.aliyuncs.com/video/local-3.mp4"; break;
             case 4 : src = "https://bianwenkai.oss-cn-beijing.aliyuncs.com/video/local-4.mp4"; break;
             case 5 : src = "https://bianwenkai.oss-cn-beijing.aliyuncs.com/video/local-5.mp4"; break;
-            case 6 : src = "https://bianwenkai.oss-cn-beijing.aliyuncs.com/video/monitor-video.mp4"; break;
-            default:  src = "https://bianwenkai.oss-cn-beijing.aliyuncs.com/video/monitor-video.mp4"; break;
+            case 6 : src = "https://bianwenkai.oss-cn-beijing.aliyuncs.com/video/local_1.mp4"; break;
+            default:  src = "https://bianwenkai.oss-cn-beijing.aliyuncs.com/video/local-2.mp4"; break;
         }
         return src;
     }
@@ -131,5 +138,10 @@ public class DustEnvServiceImpl implements DustEnvService {
     @Override
     public List<DustEnvironment> getAllMonitorData(CommonVo commonVo) {
         return dustEnvDataMapper.AllMonitorData(commonVo);
+    }
+
+    @Override
+    public int NumberOfEarlyWarningRecord() {
+        return dustEnvDataMapper.NumberOfEarlyWarningRecord();
     }
 }

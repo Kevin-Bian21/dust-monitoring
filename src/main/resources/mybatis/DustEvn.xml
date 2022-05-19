@@ -33,4 +33,13 @@
         order by id
     </select>
 
+    <insert id="EarlyWarningRecord" parameterType="WarningData">
+        insert into warning_data
+        set id = #{id}, level = #{level }, dust_limit = #{dustLimit}, temperature_limit = #{temperatureLimit}
+    </insert>
+
+    <select id="NumberOfEarlyWarningRecord" >
+        select count(*)
+        from warning_data
+    </select>
 </mapper>
