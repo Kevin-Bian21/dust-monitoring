@@ -37,23 +37,25 @@ public class UserController {
         String confirm = password.get("confirm");
 
         //如果新密码和再次输入的密码不一致，直接退出
-        if (newPassword.equals(confirm)) {
-            map.put("success",false);
+        if (!newPassword.equals(confirm)) {
+            map.put("success","no");
             map.put("message","两次输入的密码不一致");
             return JSON.toJSONString(map);
         }
         Claims claims = ParserJwt.decoding(token);
         int userId = Integer.parseInt(claims.getId());
+        if (claims.get("password").equals(newPassword)) {
+            map.put("success","no");
+            map.put("message","修改的密码不能和原密码相同");
+            return JSON.toJSONString(map);
+        }
         if (claims.get("password").equals(oldPassword)) {
             if (userService.updatePassword(userId,newPassword) > 0) {
-                map.put("success",true);
+                map.put("success","ok");
                 map.put("message","修改成功,请重新登录");
-            } else {
-                map.put("success",false);
-                map.put("message","修改的密码不能和原密码相同");
             }
         } else {
-            map.put("success",false);
+            map.put("success","no");
             map.put("message","原密码有误");
         }
         return JSON.toJSONString(map);

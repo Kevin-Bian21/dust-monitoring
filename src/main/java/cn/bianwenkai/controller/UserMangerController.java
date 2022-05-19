@@ -60,10 +60,10 @@ public class UserMangerController {
         }
         Map<String, Object> map = new HashMap<>();
         if (i > 0) {
-            map.put("success",true);
+            map.put("success","ok");
             map.put("message", "删除成功!");
         } else {
-            map.put("success",false);
+            map.put("success","no");
             map.put("message","删除失败!");
         }
         return JSON.toJSONString(map);
@@ -75,10 +75,10 @@ public class UserMangerController {
         int i = userMangerService.addUser(user);
         Map<String, Object> map = new HashMap<>();
         if (i > 0) {
-            map.put("success",true);
+            map.put("success","ok");
             map.put("message", "添加成功!");
         } else {
-            map.put("success",false);
+            map.put("success","no");
             map.put("message","添加失败!");
         }
         return JSON.toJSONString(map);
@@ -90,10 +90,10 @@ public class UserMangerController {
         int i = userMangerService.updateUser(user);
         Map<String, Object> map = new HashMap<>();
         if (i > 0) {
-            map.put("success",true);
+            map.put("success","ok");
             map.put("message", "修改成功!");
         } else {
-            map.put("success",false);
+            map.put("success","no");
             map.put("message","修改失败!");
         }
         return JSON.toJSONString(map);
