@@ -16,4 +16,10 @@
         where user_id = #{id}
     </select>
 
+    <update id="UpdatePersonalInfo" parameterType="User">
+        update user_info
+        set user_name = #{userName},phone = #{phone} , email = #{email}
+        where user_id = #{userId}
+    </update>
+
 </mapper>

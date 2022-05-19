@@ -1,5 +1,6 @@
 package cn.bianwenkai.controller;
 
+import cn.bianwenkai.entity.User;
 import cn.bianwenkai.service.UserService;
 import cn.bianwenkai.utils.ParserJwt;
 import com.alibaba.fastjson2.JSON;
@@ -71,6 +72,24 @@ public class UserController {
         } else {
             map.put("success","ok");
             map.put("data",userService.getPersonalDetails(Integer.parseInt(ParserJwt.decoding(token).getId())));
+        }
+        return JSON.toJSONString(map);
+    }
+
+    @PostMapping("/updatePersonalInfo")
+    @ResponseBody
+    public String addUser(@RequestBody User user, @RequestHeader("Authorization") String token) {
+        Claims claims = ParserJwt.decoding(token);
+        int userId = Integer.parseInt(claims.getId());
+        user.setUserId(userId);
+        int i = userService.updatePersonalInfo(user);
+        Map<String, Object> map = new HashMap<>();
+        if (i > 0) {
+            map.put("success","ok");
+            map.put("message", "更新成功!");
+        } else {
+            map.put("success","no");
+            map.put("message","更新失败!");
         }
         return JSON.toJSONString(map);
     }

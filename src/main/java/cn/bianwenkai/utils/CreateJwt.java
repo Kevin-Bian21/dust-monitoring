@@ -19,7 +19,7 @@ public class CreateJwt {
 
         JwtBuilder jwtBuilder = Jwts.builder()
                 .setId(user.getUserId() + "")//设置需要加密的内容
-                .setSubject(user.getUserName())
+                .setSubject(user.getLoginAccount())
                 .claim("role",user.getAccess())
                 .claim("password",user.getPassWord())
                 .setIssuedAt(new Date())//token保留时间

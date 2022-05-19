@@ -12,4 +12,6 @@ public interface UserService {
 
     User getPersonalDetails(int id);
 
+    int updatePersonalInfo(User user);
+
 }

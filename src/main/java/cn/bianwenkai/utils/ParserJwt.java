@@ -17,7 +17,7 @@ public class ParserJwt {
                 .parseClaimsJws(token)
                 .getBody();
         System.out.println("用户id:"+claims.getId());
-        System.out.println("用户名:"+claims.getSubject());
+        System.out.println("登录账户:"+claims.getSubject());
         System.out.println("用户时间:"+new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
                 format(claims.getIssuedAt()));System.out.println("过期时间:"+new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
                 format(claims.getExpiration()));

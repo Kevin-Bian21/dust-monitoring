@@ -28,4 +28,9 @@ public class UserServiceImpl implements UserService {
         return userMapper.GetPersonalDetails(id);
     }
 
+    @Override
+    public int updatePersonalInfo(User user) {
+        return userMapper.UpdatePersonalInfo(user);
+    }
+
 }

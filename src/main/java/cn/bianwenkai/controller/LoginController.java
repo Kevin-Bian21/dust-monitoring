@@ -54,7 +54,6 @@ public class LoginController {
     @ApiOperation("获取当前登录的用户信息")
     @ResponseBody
     public String getCurrentUser(@RequestHeader("Authorization") String token) throws JsonProcessingException {
-        System.out.println(token);
         Map<String,Object> map = new HashMap<>();
         ObjectMapper mapper = new ObjectMapper();
         if (token == null) {
@@ -64,7 +63,7 @@ public class LoginController {
             int userId = Integer.parseInt(claims.getId());
             String userName = claims.getSubject();
             User user = loginService.findUserById(userId);
-            if (claims.getId() != null && userName != null && userName.equals(user.getUserName())) {
+            if (claims.getId() != null && userName != null) {
                 return mapper.writeValueAsString(user);
             }
         }

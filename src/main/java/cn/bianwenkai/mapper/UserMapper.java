@@ -15,4 +15,6 @@ public interface UserMapper {
 
     User GetPersonalDetails(int id);
 
+    int UpdatePersonalInfo(User user);
+
 }
