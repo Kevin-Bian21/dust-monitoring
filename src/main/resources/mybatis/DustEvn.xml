@@ -19,18 +19,19 @@
     </select>
 
 
-    <select id="AllMonitorData" resultType="DustEnvironment">
-        select *
-        from environment_info
+    <select id="AllMonitorData" resultType="MonitorDataVo" >
+        select e.id as id,monitor_local,dust_density,temperature,humidity,wind_speed,monitor_datetime,level,dust_limit,temperature_limit
+        from environment_info e ,  warning_data w
         <where>
+            and e.id = w.id
             <if test="searchMessage != null">
-                monitor_local = #{searchMessage}
+               and monitor_local = #{searchMessage}
             </if>
             <if test="startDateTime != null and endDateTime != null">
                 and monitor_datetime between #{startDateTime} and #{endDateTime}
             </if>
         </where>
-        order by id
+        order by e.id
     </select>
 
     <insert id="EarlyWarningRecord" parameterType="WarningData">

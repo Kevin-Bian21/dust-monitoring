@@ -19,18 +19,19 @@ spring:
 
 
 
-  #  mail:
-#    username:
-#    password:
-#    host: smtp.qq.com
-#    properties: mail.smtp.ssl.enable=true
+  mail:
+    username: 1467295546@qq.com
+    password: wrovfihvrvmajaia
+    host: smtp.qq.com
+    properties: mail.smtp.ssl.enable=true
+    port: 465
   redis:
     host: 127.0.0.1
     port: 6379
 
 # 整合mybatis
 mybatis:
-  type-aliases-package: cn.bianwenkai.entity
+  type-aliases-package: cn.bianwenkai.entity , cn.bianwenkai.vo
   mapper-locations: classpath:mybatis/*.xml
   configuration:
     map-underscore-to-camel-case: true

@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class WarningData {
 
-    private Integer id;
+    private Integer Id;
     private Float dustLimit;
     private Float temperatureLimit;
     private String level;

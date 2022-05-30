@@ -6,6 +6,7 @@ import cn.bianwenkai.service.DustEnvService;
 import cn.bianwenkai.utils.BeanProvider;
 import cn.bianwenkai.utils.HistogramData;
 import cn.bianwenkai.vo.CommonVo;
+import cn.bianwenkai.vo.MonitorDataVo;
 import cn.bianwenkai.vo.SearchData;
 import com.alibaba.fastjson2.JSON;
 import org.springframework.stereotype.Service;
@@ -56,9 +57,11 @@ public class DustEnvServiceImpl implements DustEnvService {
 
                 //如果超过预警值则将其记录
 //                WarningData warningData = new WarningData(de.getId(),dustLimit,temperatureLimit,"严重");
-//                dustEnvDataMapper.EarlyWarningRecord(warningData);
+//                bean.EarlyWarningRecord(warningData);
             } else{
                 de.setTag("良好");
+//                WarningData warningData = new WarningData(de.getId(),dustLimit,temperatureLimit,"良好");
+//                bean.EarlyWarningRecord(warningData);
             }
             //为直方图数据进行一个数据的映射，以符合前端要求的数据格式
             for (int i = 0; i < 4; i++) {
@@ -136,7 +139,7 @@ public class DustEnvServiceImpl implements DustEnvService {
     }
 
     @Override
-    public List<DustEnvironment> getAllMonitorData(CommonVo commonVo) {
+    public List<MonitorDataVo> getAllMonitorData(CommonVo commonVo) {
         return dustEnvDataMapper.AllMonitorData(commonVo);
     }
 

@@ -1,4 +1,4 @@
-package cn.bianwenkai.entity;
+package cn.bianwenkai.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -8,13 +8,12 @@ import java.util.Date;
 
 /**
  * @author BianWenKai
- * @DATE 2022/5/4 - 17:17
+ * @DATE 2022/5/20 - 10:33
  **/
-
 @Data
-public class DustEnvironment{
+public class MonitorDataVo {
 
-    private Integer id;
+    private Integer Id;
     private Float dustDensity;
     private String monitorLocal;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -23,6 +22,8 @@ public class DustEnvironment{
     private Float temperature;
     private Float humidity;
     private Float windSpeed;
-    private String tag;
+    private String level;
+    private Float dustLimit;
+    private Float temperatureLimit;
 
 }
