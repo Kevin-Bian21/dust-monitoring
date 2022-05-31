@@ -28,4 +28,6 @@ public interface DustEnvDataMapper {
     //统计预警数据
     int NumberOfEarlyWarningRecord();
 
+    String[] GetAllUserEmail();
+
 }

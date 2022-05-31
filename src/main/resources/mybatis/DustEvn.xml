@@ -43,4 +43,9 @@
         select count(*)
         from warning_data
     </select>
+
+    <select id="GetAllUserEmail" resultType="String">
+        select email
+        from user_info
+    </select>
 </mapper>

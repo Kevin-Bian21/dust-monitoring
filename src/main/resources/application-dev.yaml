@@ -3,6 +3,20 @@ server:
   port: 8080
 
 spring:
+  mail:
+    host: smtp.qq.com
+    username: 1467295546@qq.com
+    password: wrovfihvrvmajaia
+    port: 587
+    # 默认的邮件编码为UTF-8
+    default-encoding: UTF-8
+#      配置SSL 加密工厂
+    properties:
+      mail:
+        smtp:
+          socketFactoryClass: javax.net.ssl.SSLSocketFactory
+        #表示开启 DEBUG 模式，这样，邮件发送过程的日志会在控制台打印出来，方便排查错误
+        debug: true
   datasource:
     username: root
     password: bwk123
@@ -19,12 +33,7 @@ spring:
 
 
 
-  mail:
-    username: 1467295546@qq.com
-    password: wrovfihvrvmajaia
-    host: smtp.qq.com
-    properties: mail.smtp.ssl.enable=true
-    port: 465
+
   redis:
     host: 127.0.0.1
     port: 6379

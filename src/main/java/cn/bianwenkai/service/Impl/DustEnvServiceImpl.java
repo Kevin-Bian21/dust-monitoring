@@ -5,10 +5,12 @@ import cn.bianwenkai.mapper.DustEnvDataMapper;
 import cn.bianwenkai.service.DustEnvService;
 import cn.bianwenkai.utils.BeanProvider;
 import cn.bianwenkai.utils.HistogramData;
+import cn.bianwenkai.utils.MailService;
 import cn.bianwenkai.vo.CommonVo;
 import cn.bianwenkai.vo.MonitorDataVo;
 import cn.bianwenkai.vo.SearchData;
 import com.alibaba.fastjson2.JSON;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -27,9 +29,14 @@ public class DustEnvServiceImpl implements DustEnvService {
 
     private static SearchData searchData = new SearchData(1, 10);
 
+    private static final String COMPANY_EMAIL = "1467295546@qq.com";
+    private static final String TITLE = "粉尘浓度预警通知！";
+
     @Resource
     private DustEnvDataMapper dustEnvDataMapper;
 
+    @Autowired
+    private MailService mailService;
 
     /**
      * 通过工具类来获取DustEnvMapper实例对象，线程中不允许通过注解来注入对象
@@ -51,10 +58,15 @@ public class DustEnvServiceImpl implements DustEnvService {
 
         DustEnvDataMapper bean = (DustEnvDataMapper)BeanProvider.getBean(DustEnvDataMapper.class);
 
+        String[] allUserEmail = dustEnvDataMapper.GetAllUserEmail();
         for (DustEnvironment de : bean.GetEnvData(searchData.getStart(), searchData.getEnd())) {
             if (de.getDustDensity() > dustLimit && de.getTemperature() > temperatureLimit) {
                 de.setTag("严重");
-
+                //向用户通过电子邮件发送超出预警值的数据
+//                String text = "监测时间:" + de.getMonitorDateTime() + "\n\n" + "当前预警值： " + "粉尘浓度：" + dustLimit + "g/m³" + "温度：" + temperatureLimit + "℃ 。"
+//                        + "\n" + "预警位置："+de.getMonitorLocal() + "\n" + "监测数据：  "+ "粉尘浓度：\t" +de.getDustDensity()+"温度：\t" + de.getTemperature()
+//                        + "湿度：\t" +de.getHumidity() + "风速:\t"+de.getWindSpeed();
+//                mailService.sendMail(COMPANY_EMAIL, allUserEmail, TITLE, text);
                 //如果超过预警值则将其记录
 //                WarningData warningData = new WarningData(de.getId(),dustLimit,temperatureLimit,"严重");
 //                bean.EarlyWarningRecord(warningData);
