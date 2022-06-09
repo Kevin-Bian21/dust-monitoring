@@ -1,0 +1,234 @@
+@startuml
+class cn.bianwenkai.service.Impl.UserServiceImpl {
+- UserMapper userMapper
++ int updatePassword(int,String)
++ User getPersonalDetails(int)
++ int updatePersonalInfo(User)
+}
+interface cn.bianwenkai.mapper.DustEnvDataMapper {
+~ List<DustEnvironment> GetEnvData(int,int)
+~ List<DustEnvironment> GetSingleMonitorLocalData(String)
+~ List<MonitorDataVo> AllMonitorData(CommonVo)
+~ int EarlyWarningRecord(WarningData)
+~ int NumberOfEarlyWarningRecord()
+~ String[] GetAllUserEmail()
+}
+
+class cn.bianwenkai.entity.ActionLog {
+- Integer id
+- Float dustDensity
+- String monitorLocal
+- Date monitorDateTime
+- Float temperature
+- Float humidity
+- Float windSpeed
+}
+
+class cn.bianwenkai.utils.MailService {
+- JavaMailSender javaMailSender
++ void sendMail(String,String[],String,String)
+}
+interface cn.bianwenkai.mapper.UserMangerMapper {
+~ List<User> AllUserInfo(CommonVo)
+~ int DeleteUser(int)
+~ int AddUser(User)
+~ int UpdateUser(User)
+}
+
+class cn.bianwenkai.controller.LoginController {
+- LoginService loginService
++ String login(Map<String,String>)
++ String getCurrentUser(String)
++ String logout(String)
+}
+class cn.bianwenkai.controller.DustEnvDataController {
+- DustEnvService dustEnvService
++ String getPresentEnvData(Map<String,String>)
++ String getSingleMonitorLocalData(String)
++ String getMonitorVideo(Integer)
++ String getAllMonitorData(CommonVo)
+- int getNumberOfEarlyWarningRecord()
+}
+
+interface cn.bianwenkai.service.DustEnvService {
+~ List<Object> getDustEnvData(String,String)
+~ String getSingleMonitorLocalData(String)
+~ String getMonitorVideo(int)
+~ List<MonitorDataVo> getAllMonitorData(CommonVo)
+~ int NumberOfEarlyWarningRecord()
+}
+
+class cn.bianwenkai.websocket.WebSocketServer {
+- {static} int onlineCount
+- {static} ConcurrentHashMap<String,WebSocketServer> webSocketMap
+- Session session
+- String accountId
+- String token
+- String message
+~ ScheduledExecutorService scheduledExecutorService
+- {static} Logger logger
+- DustEnvService dustEnvService
++ void onOpen(Session,String)
++ void onClose(Session)
++ void onMessage(String)
++ void onError(Session,Throwable)
++ void sendMessage(String)
++ void init()
+}
+class cn.bianwenkai.websocket.WebSocketServer.Task {
++ void run()
+}
+interface cn.bianwenkai.mapper.LoginMapper {
+~ User LoginByAccount(String)
+~ User FindUserById(int)
+~ int UpdateLoginInfo(int)
+}
+class cn.bianwenkai.entity.WarningData {
+- Integer Id
+- Float dustLimit
+- Float temperatureLimit
+- String level
+}
+interface cn.bianwenkai.mapper.UserMapper {
+~ int UpdatePassword(int,String)
+~ User GetPersonalDetails(int)
+~ int UpdatePersonalInfo(User)
+}
+class cn.bianwenkai.config.DruidConfig {
+}
+class cn.bianwenkai.entity.User {
+- Integer userId
+- String userName
+- String loginAccount
+- String passWord
+- String avatar
+- String phone
+- String email
+- Date generateTime
+- Date lastLoginTime
+- Integer loginCount
+- String access
+}
+interface cn.bianwenkai.service.LoginService {
+~ User login(String,String)
+~ User findUserById(int)
+~ int updateLoginInfo(int)
+}
+class cn.bianwenkai.utils.ParserJwt {
++ {static} Claims decoding(String)
+}
+class cn.bianwenkai.vo.MonitorDataVo {
+- Integer Id
+- Float dustDensity
+- String monitorLocal
+- Date monitorDateTime
+- Float temperature
+- Float humidity
+- Float windSpeed
+- String level
+- Float dustLimit
+- Float temperatureLimit
+}
+class cn.bianwenkai.controller.test {
++ String hello(String)
+}
+class cn.bianwenkai.service.Impl.UserMangerServiceImpl {
+- UserMangerMapper userMangerMapper
++ List<User> getAllUserInfo(CommonVo)
++ int deleteUser(int)
++ int addUser(User)
++ int updateUser(User)
+}
+class cn.bianwenkai.DustMonitorApplication {
++ {static} void main(String[])
+}
+class cn.bianwenkai.controller.UserMangerController {
+- UserMangerService userMangerService
++ String getAllUserInfo(CommonVo,String)
++ String deleteUser(Map<String,List<Integer>>)
++ String addUser(User)
++ String updateUser(User)
+}
+class cn.bianwenkai.utils.BeanProvider {
+- {static} ApplicationContext context
++ void setApplicationContext(ApplicationContext)
++ {static} T getBean(Class<T>)
+}
+class cn.bianwenkai.service.Impl.LoginServiceImpl {
+- LoginMapper loginMapper
++ User login(String,String)
++ User findUserById(int)
++ int updateLoginInfo(int)
+}
+interface cn.bianwenkai.service.UserMangerService {
+~ List<User> getAllUserInfo(CommonVo)
+~ int deleteUser(int)
+~ int addUser(User)
+~ int updateUser(User)
+}
+interface cn.bianwenkai.service.UserService {
+~ int updatePassword(int,String)
+~ User getPersonalDetails(int)
+~ int updatePersonalInfo(User)
+}
+class cn.bianwenkai.utils.GenerateMockData {
++ {static} void main(String[])
+- {static} float getDust()
+- {static} float getTemperature()
+- {static} float getHumidity()
+- {static} float getWindSpeed()
+}
+class cn.bianwenkai.vo.SearchData {
+- Integer start
+- Integer end
+}
+class cn.bianwenkai.controller.UserController {
+- UserService userService
++ String updatePassword(Map<String,String>,String)
++ String logout(String)
++ String addUser(User,String)
+}
+class cn.bianwenkai.service.Impl.DustEnvServiceImpl {
+- {static} SearchData searchData
+- {static} String COMPANY_EMAIL
+- {static} String TITLE
+- DustEnvDataMapper dustEnvDataMapper
+- MailService mailService
++ List<Object> getDustEnvData(String,String)
++ String getSingleMonitorLocalData(String)
++ String getMonitorVideo(int)
++ List<MonitorDataVo> getAllMonitorData(CommonVo)
++ int NumberOfEarlyWarningRecord()
+}
+class cn.bianwenkai.config.WebSocketConfig {
++ ServerEndpointExporter serverEndpointExporter()
+}
+class cn.bianwenkai.utils.AntData {
+- Boolean success
+- String message
+- User data
+- String status
+- String type
+- String currentAuthority
+- String access
+}
+class cn.bianwenkai.entity.DustEnvironment {
+- Integer id
+- Float dustDensity
+- String monitorLocal
+- Date monitorDateTime
+- Float temperature
+- Float humidity
+- Float windSpeed
+- String tag
+}
+
+
+cn.bianwenkai.service.UserService <|.. cn.bianwenkai.service.Impl.UserServiceImpl
+cn.bianwenkai.websocket.WebSocketServer +.. cn.bianwenkai.websocket.WebSocketServer.Task
+cn.bianwenkai.websocket.Runnable <|.. cn.bianwenkai.websocket.WebSocketServer.Task
+cn.bianwenkai.service.UserMangerService <|.. cn.bianwenkai.service.Impl.UserMangerServiceImpl
+org.springframework.context.ApplicationContextAware <|.. cn.bianwenkai.utils.BeanProvider
+cn.bianwenkai.service.LoginService <|.. cn.bianwenkai.service.Impl.LoginServiceImpl
+cn.bianwenkai.service.DustEnvService <|.. cn.bianwenkai.service.Impl.DustEnvServiceImpl
+@enduml

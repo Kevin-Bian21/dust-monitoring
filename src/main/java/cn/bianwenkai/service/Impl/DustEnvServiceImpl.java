@@ -1,6 +1,7 @@
 package cn.bianwenkai.service.Impl;
 
 import cn.bianwenkai.entity.DustEnvironment;
+import cn.bianwenkai.entity.WarningData;
 import cn.bianwenkai.mapper.DustEnvDataMapper;
 import cn.bianwenkai.service.DustEnvService;
 import cn.bianwenkai.utils.BeanProvider;
@@ -38,6 +39,11 @@ public class DustEnvServiceImpl implements DustEnvService {
     @Autowired
     private MailService mailService;
 
+    //用来记录同一个监测点连续出现预警的次数，从而判断是否要发送邮件通知。
+    private Map<String, Integer> map = new HashMap<>();
+
+    Boolean initMapFlag = true;
+
     /**
      * 通过工具类来获取DustEnvMapper实例对象，线程中不允许通过注解来注入对象
      * @param dust
@@ -60,20 +66,29 @@ public class DustEnvServiceImpl implements DustEnvService {
 
         String[] allUserEmail = dustEnvDataMapper.GetAllUserEmail();
         for (DustEnvironment de : bean.GetEnvData(searchData.getStart(), searchData.getEnd())) {
+            //对记录某个监测点连续出现的map对象初始化
+            if (initMapFlag) {
+                map.put(de.getMonitorLocal(), 0);
+                initMapFlag = false;
+            }
             if (de.getDustDensity() > dustLimit && de.getTemperature() > temperatureLimit) {
                 de.setTag("严重");
-                //向用户通过电子邮件发送超出预警值的数据
-//                String text = "监测时间:" + de.getMonitorDateTime() + "\n\n" + "当前预警值： " + "粉尘浓度：" + dustLimit + "g/m³" + "温度：" + temperatureLimit + "℃ 。"
-//                        + "\n" + "预警位置："+de.getMonitorLocal() + "\n" + "监测数据：  "+ "粉尘浓度：\t" +de.getDustDensity()+"温度：\t" + de.getTemperature()
-//                        + "湿度：\t" +de.getHumidity() + "风速:\t"+de.getWindSpeed();
-//                mailService.sendMail(COMPANY_EMAIL, allUserEmail, TITLE, text);
+
+                //下一次该检测点预警等级为严重，则让其value值加一
+                map.put(de.getMonitorLocal(),map.get(de.getMonitorLocal()) + 1);
+
+                //如果某个监测点连续预警次数大于等于10次，则发送电子邮件通知管理员进行处理
+                if (map.get(de.getMonitorLocal()) >= 10) {
+                    sendEmail(dustLimit, temperatureLimit, de, allUserEmail);
+                }
+
                 //如果超过预警值则将其记录
-//                WarningData warningData = new WarningData(de.getId(),dustLimit,temperatureLimit,"严重");
-//                bean.EarlyWarningRecord(warningData);
+                earlyWarningRecord(de, dustLimit, temperatureLimit, bean,"严重");
             } else{
                 de.setTag("良好");
-//                WarningData warningData = new WarningData(de.getId(),dustLimit,temperatureLimit,"良好");
-//                bean.EarlyWarningRecord(warningData);
+                //下一次该检测点预警等级不为严重，则将其连续预警值清空。
+                map.put(de.getMonitorLocal(),0);
+                earlyWarningRecord(de, dustLimit, temperatureLimit, bean,"良好");
             }
             //为直方图数据进行一个数据的映射，以符合前端要求的数据格式
             for (int i = 0; i < 4; i++) {
@@ -158,5 +173,19 @@ public class DustEnvServiceImpl implements DustEnvService {
     @Override
     public int NumberOfEarlyWarningRecord() {
         return dustEnvDataMapper.NumberOfEarlyWarningRecord();
+    }
+
+
+    private void earlyWarningRecord(DustEnvironment de, float dustLimit, float temperatureLimit, DustEnvDataMapper bean , String level) {
+        WarningData warningData = new WarningData(de.getId(),dustLimit,temperatureLimit,level);
+        bean.EarlyWarningRecord(warningData);
+    }
+
+    private void sendEmail(float dustLimit, float temperatureLimit, DustEnvironment de, String[] allUserEmail) {
+        //向用户通过电子邮件发送超出预警值的数据
+        String text = "监测时间:" + de.getMonitorDateTime() + "\n\n" + "当前预警值： " + "粉尘浓度：" + dustLimit + "g/m³" + "温度：" + temperatureLimit + "℃ 。"
+                + "\n" + "预警位置："+de.getMonitorLocal() + "\n" + "监测数据：  "+ "粉尘浓度：\t" +de.getDustDensity()+"温度：\t" + de.getTemperature()
+                + "湿度：\t" +de.getHumidity() + "风速:\t"+de.getWindSpeed();
+        mailService.sendMail(COMPANY_EMAIL, allUserEmail, TITLE, text);
     }
 }

@@ -1,0 +1,256 @@
+@startuml
+class UserServiceImpl {
+- UserMapper userMapper
++ int updatePassword(int,String)
++ User getPersonalDetails(int)
++ int updatePersonalInfo(User)
+}
+interface DustEnvDataMapper {
+~ List<DustEnvironment> GetEnvData(int,int)
+~ List<DustEnvironment> GetSingleMonitorLocalData(String)
+~ List<MonitorDataVo> AllMonitorData(CommonVo)
+~ int EarlyWarningRecord(WarningData)
+~ int NumberOfEarlyWarningRecord()
+~ String[] GetAllUserEmail()
+}
+class WebMvcConfig {
++ void addResourceHandlers(ResourceHandlerRegistry)
+}
+class ActionLog {
+- Integer id
+- Float dustDensity
+- String monitorLocal
+- Date monitorDateTime
+- Float temperature
+- Float humidity
+- Float windSpeed
+}
+class RedisConfig {
++ RedisTemplate<String,Object> redisTemplate(RedisConnectionFactory)
+}
+class MailService {
+- JavaMailSender javaMailSender
++ void sendMail(String,String[],String,String)
+}
+interface UserMangerMapper {
+~ List<User> AllUserInfo(CommonVo)
+~ int DeleteUser(int)
+~ int AddUser(User)
+~ int UpdateUser(User)
+}
+class SwaggerConfig {
++ Docket createRestApi()
+- ApiInfo apiInfo()
+}
+class LoginController {
+- LoginService loginService
++ String login(Map<String,String>)
++ String getCurrentUser(String)
++ String logout(String)
+}
+class DustEnvDataController {
+- DustEnvService dustEnvService
++ String getPresentEnvData(Map<String,String>)
++ String getSingleMonitorLocalData(String)
++ String getMonitorVideo(Integer)
++ String getAllMonitorData(CommonVo)
+- int getNumberOfEarlyWarningRecord()
+}
+class HistogramData {
+- String local
+- String type
+- Float value
+}
+class CreateJwt {
++ {static} String getoken(User)
+}
+interface DustEnvService {
+~ List<Object> getDustEnvData(String,String)
+~ String getSingleMonitorLocalData(String)
+~ String getMonitorVideo(int)
+~ List<MonitorDataVo> getAllMonitorData(CommonVo)
+~ int NumberOfEarlyWarningRecord()
+}
+class CommonVo {
+- Integer page
+- Integer limit
+- String searchMessage
+- String startDateTime
+- String endDateTime
+- int id
+}
+class WebSocketServer {
+- {static} int onlineCount
+- {static} ConcurrentHashMap<String,WebSocketServer> webSocketMap
+- Session session
+- String accountId
+- String token
+- String message
+~ ScheduledExecutorService scheduledExecutorService
+- {static} Logger logger
+- DustEnvService dustEnvService
++ void onOpen(Session,String)
++ void onClose(Session)
++ void onMessage(String)
++ void onError(Session,Throwable)
++ void sendMessage(String)
++ void init()
+}
+class WebSocketServer.Task {
++ void run()
+}
+interface LoginMapper {
+~ User LoginByAccount(String)
+~ User FindUserById(int)
+~ int UpdateLoginInfo(int)
+}
+class WarningData {
+- Integer Id
+- Float dustLimit
+- Float temperatureLimit
+- String level
+}
+interface UserMapper {
+~ int UpdatePassword(int,String)
+~ User GetPersonalDetails(int)
+~ int UpdatePersonalInfo(User)
+}
+class DruidConfig {
+}
+class User {
+- Integer userId
+- String userName
+- String loginAccount
+- String passWord
+- String avatar
+- String phone
+- String email
+- Date generateTime
+- Date lastLoginTime
+- Integer loginCount
+- String access
+}
+interface LoginService {
+~ User login(String,String)
+~ User findUserById(int)
+~ int updateLoginInfo(int)
+}
+class ParserJwt {
++ {static} Claims decoding(String)
+}
+class MonitorDataVo {
+- Integer Id
+- Float dustDensity
+- String monitorLocal
+- Date monitorDateTime
+- Float temperature
+- Float humidity
+- Float windSpeed
+- String level
+- Float dustLimit
+- Float temperatureLimit
+}
+class test {
++ String hello(String)
+}
+class UserMangerServiceImpl {
+- UserMangerMapper userMangerMapper
++ List<User> getAllUserInfo(CommonVo)
++ int deleteUser(int)
++ int addUser(User)
++ int updateUser(User)
+}
+class DustMonitorApplication {
++ {static} void main(String[])
+}
+class UserMangerController {
+- UserMangerService userMangerService
++ String getAllUserInfo(CommonVo,String)
++ String deleteUser(Map<String,List<Integer>>)
++ String addUser(User)
++ String updateUser(User)
+}
+class BeanProvider {
+- {static} ApplicationContext context
++ void setApplicationContext(ApplicationContext)
++ {static} T getBean(Class<T>)
+}
+class LoginServiceImpl {
+- LoginMapper loginMapper
++ User login(String,String)
++ User findUserById(int)
++ int updateLoginInfo(int)
+}
+interface UserMangerService {
+~ List<User> getAllUserInfo(CommonVo)
+~ int deleteUser(int)
+~ int addUser(User)
+~ int updateUser(User)
+}
+interface UserService {
+~ int updatePassword(int,String)
+~ User getPersonalDetails(int)
+~ int updatePersonalInfo(User)
+}
+class GenerateMockData {
++ {static} void main(String[])
+- {static} float getDust()
+- {static} float getTemperature()
+- {static} float getHumidity()
+- {static} float getWindSpeed()
+}
+class SearchData {
+- Integer start
+- Integer end
+}
+class UserController {
+- UserService userService
++ String updatePassword(Map<String,String>,String)
++ String logout(String)
++ String addUser(User,String)
+}
+class DustEnvServiceImpl {
+- {static} SearchData searchData
+- {static} String COMPANY_EMAIL
+- {static} String TITLE
+- DustEnvDataMapper dustEnvDataMapper
+- MailService mailService
++ List<Object> getDustEnvData(String,String)
++ String getSingleMonitorLocalData(String)
++ String getMonitorVideo(int)
++ List<MonitorDataVo> getAllMonitorData(CommonVo)
++ int NumberOfEarlyWarningRecord()
+}
+class WebSocketConfig {
++ ServerEndpointExporter serverEndpointExporter()
+}
+class AntData {
+- Boolean success
+- String message
+- User data
+- String status
+- String type
+- String currentAuthority
+- String access
+}
+class DustEnvironment {
+- Integer id
+- Float dustDensity
+- String monitorLocal
+- Date monitorDateTime
+- Float temperature
+- Float humidity
+- Float windSpeed
+- String tag
+}
+
+
+UserService <|.. UserServiceImpl
+WebMvcConfigurer <|.. WebMvcConfig
+WebSocketServer +.. WebSocketServer.Task
+Runnable <|.. WebSocketServer.Task
+UserMangerService <|.. UserMangerServiceImpl
+ApplicationContextAware <|.. BeanProvider
+LoginService <|.. LoginServiceImpl
+DustEnvService <|.. DustEnvServiceImpl
+@enduml
